@@ -698,6 +698,7 @@ export class NamecheapClient {
       "--disable-gpu",
       "--disable-software-rasterizer",
       "--disable-dev-shm-usage",
+      "--headless=old", // Use old headless mode for stability
     ];
   }
 
@@ -714,6 +715,17 @@ export class NamecheapClient {
       .filter((value) => !isEmpty(value) && existsSync(value));
 
     const attempts: Array<() => Promise<Browser>> = [
+      // Try Chromium first (more stable with --headless=old)
+      () => chromium.launch({
+        ...launchBase,
+        channel: "chromium",
+      }),
+      ...executableCandidates.map((executablePath) => () =>
+        chromium.launch({
+          ...launchBase,
+          executablePath,
+        })),
+      // Camoufox as last resort (can hang on some systems)
       () =>
         Camoufox({
           ...(configuredExecutable ? { executable_path: configuredExecutable } : {}),
@@ -724,15 +736,6 @@ export class NamecheapClient {
           block_webgl: true,
           iKnowWhatImDoing: true,
         }),
-      () => chromium.launch({
-        ...launchBase,
-        channel: "chromium",
-      }),
-      ...executableCandidates.map((executablePath) => () =>
-        chromium.launch({
-          ...launchBase,
-          executablePath,
-        })),
     ];
 
     let lastError: unknown = null;
