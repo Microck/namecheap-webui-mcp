@@ -1,6 +1,6 @@
 ---
 name: namecheap-webui-mcp
-description: Use when a user needs to manage Namecheap domains or DNS through the normal Namecheap website without registrar API access. Covers the working flow, the flaky parts, and the fastest fallback path.
+description: Manage Namecheap domains, DNS records, and nameservers through the regular Namecheap web dashboard without API credentials. Covers authentication flows (including 2FA), browser automation patterns, safe DNS operations, and fallback paths. Requires Node.js 20+, Playwright, and network access to namecheap.com.
 ---
 
 # Namecheap WebUI MCP
