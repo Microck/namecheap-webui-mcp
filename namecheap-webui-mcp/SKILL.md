@@ -53,7 +53,7 @@ Do not assume a direct HTTP or session-token integration is the right answer her
   - Returns currently visible dashboard links with labels and href values.
 
 - `namecheap_domains_list`
-  - Lists domains visible in the dashboard.
+  - List domains visible in the Namecheap Domain List page.
 
 - `namecheap_domain_get_overview`
   - Returns Domain Manage summary data (expiry hint, nameserver mode, core feature states, snippet).
